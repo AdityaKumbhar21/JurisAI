@@ -1,5 +1,6 @@
 import express from "express";
 import authRoutes from "./routes/authRoutes.js";
+import documentRoutes from "./routes/documentRoutes.js";
 const app = express();
 import dotenv from "dotenv";
 import cookieParser from "cookie-parser"
@@ -13,7 +14,8 @@ app.use(cookieParser());
 
 
 // adding routes
-app.use("/api/auth", authRoutes)
+app.use("/api/auth", authRoutes);
+app.use("/api/doc", documentRoutes);
 
 const port = process.env.PORT;
 app.listen(port, ()=>{
