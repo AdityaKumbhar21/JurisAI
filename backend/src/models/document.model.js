@@ -29,8 +29,7 @@ const documentSchema = mongoose.Schema({
 
     status:{
         type: String,
-        enum: ["Uploaded", "Processed", "Summarized"],
-        default: "Uploaded"
+        default: "Pending"
     },
 }, {timestamps: true});
 
