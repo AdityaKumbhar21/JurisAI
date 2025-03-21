@@ -3,7 +3,7 @@ import { cloudinaryUpload } from "../utils/cloudinaryUpload.js";
 import path from "path";
 import multer from "multer";
 import { extractTextPdf, extractTextWithTesseract } from "../utils/textExtractions.js";
-import pdf from "pdf-parse";
+
 
 const storage = multer.memoryStorage();
 const upload = multer({storage});
@@ -21,8 +21,18 @@ export const uploadFile = async (req, res)=>{
             res.status(400).json({"message":"Something went Wrong"});
         }
         const userId = req.user._id;
-        const extractedData = await pdf(file.buffer);
-        const extractedText = extractedData.text;
+        let extractedText = "";
+
+        if(file.mimetype.startsWith("image/")){
+            extractedText = await extractTextWithTesseract(result.secure_url);
+        }
+        else if(file.mimetype === "application/pdf"){
+            extractedText =  await extractTextPdf(file.buffer);
+        }
+        else{
+            return res.status(400).json({"message":"File type not supported"});
+        }
+        
         const uploadedDocument = await documentModel.create({
             userId,
             fileUrl: result.secure_url,

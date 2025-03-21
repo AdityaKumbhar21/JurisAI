@@ -17,10 +17,10 @@ export const extractTextPdf = async (fileUrl)=>{
     }
 }
 
-export const extractTextWithTesseract = async (fileUrl) =>{
+export const extractTextWithTesseract = async (imageUrl) =>{
     try {
         const {data: {text}} = await tessaract.recognize(
-            fileUrl,
+            imageUrl,
             'eng',
         );
         return text;
