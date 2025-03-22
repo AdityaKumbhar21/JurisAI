@@ -62,7 +62,8 @@ npm run dev
 | Method | Route            | Description                        | Body Params                               |  
 |--------|------------------|------------------------------------|------------------------------------------|  
 | POST   | `/auth/signup`   | Register a new user                | `{ name, email, password }`              |  
-| POST   | `/auth/login`    | Login an existing user and get JWT | `{ email, password }`                    |  
+| POST   | `/auth/login`    | Login an existing user and get JWT | `{ email, password }`                    | 
+| POST   | `/auth/logout`   | Logs out the user                  |                                          |
 | GET   | `/auth/check`     | Gets the currently logged in user  |                                          |  
 
 ---
