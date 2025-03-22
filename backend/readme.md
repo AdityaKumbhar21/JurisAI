@@ -31,8 +31,8 @@ Users can upload documents via a secure /doc/upload route. The uploaded files ar
 
 ### 1. Clone the repository:  
 ```bash  
-git clone <your-repo-link>  
-cd <project-folder>  
+git clone (https://github.com/AdityaKumbhar21/JurisAI)  
+cd JurisAI  
 ```  
 
 ### 2. Install dependencies:  
