@@ -1,9 +1,20 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import NavBar from '../components/NavBar';
+import {useDocStore} from "../store/useDocStore";
+import { useEffect } from 'react';
+import toast from 'react-hot-toast';
 
 function SummaryPage() {
+  const {isSummaryLoading, pollDocumentStatus, summary, fileName} = useDocStore();
+  const {id} = useParams();
+  const navigate = useNavigate();
 
-
+  useEffect(()=>{
+    pollDocumentStatus(id, ()=>{
+      toast.error("Failed to summarize document");
+      navigate('/home');
+    })
+  }, [id])
   return (
     <div className="min-h-screen flex flex-col w-screen font-sec bg-white">
     <NavBar />
@@ -22,22 +33,20 @@ function SummaryPage() {
         <h1 className="text-3xl font-bold mb-6 text-center">Summary Report</h1>
         <p className="text-center text-gray-500 mb-10">Generated overview based on your uploaded documents</p>
   
-        <div className="mb-8 animate-pulse text-lg text-gray-700">Summarizing...</div>
+        {isSummaryLoading && <div className="mb-8 animate-pulse text-lg text-gray-700">Sumarizing...</div>}
   
-        <div className="space-y-6">
+        {!isSummaryLoading && 
+          <div className="space-y-6">
           <div className="">
             <h2 className="flex items-center text-xl font-bold mb-4">
-              <span className="text-blue-500 text-2xl mr-2">◆</span>
-              Agreement Overview
+              Summary for {fileName}
             </h2>
             <p className="text-gray-700 leading-relaxed">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad eveniet totam nemo. Mollitia ex impedit modi
-              nisi ipsa, perferendis a sunt. Incidunt minima temporibus ducimus nesciunt repellat perferendis quos earum!
+              {summary}
             </p>
           </div>
-          
-          {/* Add more summary sections as needed */}
         </div>
+        }
       </div>
     </main>
   </div>

@@ -28,7 +28,7 @@ const App = () => {
           <Route path='/signup' element={authUser ? <HomePage /> :<SignupPage/>}/>
           <Route path='/login' element={authUser ? <HomePage /> :<LoginPage/>}/>
           <Route path='/home' element={!authUser ? <LandingPage/> : <HomePage/>}/>
-          <Route path='/summary' element={!authUser ? <LandingPage/> :<SummaryPage/>}/>
+          <Route path='/summary/:id' element={!authUser ? <LandingPage/> :<SummaryPage/>}/>
         </Routes>
       </Router>
 

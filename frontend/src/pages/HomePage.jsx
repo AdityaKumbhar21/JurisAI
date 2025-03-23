@@ -1,7 +1,35 @@
 import NavBar from '../components/NavBar';
 import History from '../components/History';
+import { useState } from 'react';
+import { useDocStore } from '../store/useDocStore';
+import { useNavigate } from 'react-router-dom';
+import { Loader2 } from 'lucide-react';
 
 const HomePage = () => {
+
+  const [selectedFile, setSelectedFile]= useState(null)
+  const {isFileUploading, upload} = useDocStore();
+  const navigate = useNavigate();
+
+
+  
+  
+
+  const handleFormChange = (e)=>{
+    const file = e.target.files[0];
+    if(file){
+      setSelectedFile(file);
+    }
+  }
+
+  const handleFormSubmit = (e) =>{
+    e.preventDefault();
+    if(!selectedFile) return;
+
+    const formData = new FormData();
+    formData.append('file', selectedFile);
+    upload(formData, navigate);
+  }
   return (
     <div>
       <NavBar />
@@ -11,7 +39,7 @@ const HomePage = () => {
           <div className="w-full max-w-md text-center">
             <h1 className="text-2xl mb-4">Get Started — Add Files, Images, etc to summarize</h1>
 
-            <form>
+            <form onSubmit={handleFormSubmit} encType='multipart/form-data'>
               <div className="mb-4 flex justify-center">
                 <label
                   htmlFor="file-upload"
@@ -31,15 +59,26 @@ const HomePage = () => {
                     type="file"
                     accept="image/*,application/pdf"
                     className="hidden"
+                    onChange={handleFormChange}
                   />
                 </label>
-              </div>
+              </div>  
+                {selectedFile && (
+                    <p className="mt-2 text-lg text-sec mb-3">
+                      Selected file: <span className="font-semibold">{selectedFile.name}</span>
+                    </p>
+                  )}
 
               <button
                 type="submit"
-                className="inline-block bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition w-60 text-lg hover:cursor-pointer"
-              >
-                Summarize
+                className="inline-block bg-black text-white px-6 py-2 rounded-md hover:bg-gray-800 transition w-60 text-lg hover:cursor-pointer" disabled={isFileUploading}>
+                {isFileUploading ? (
+                  <>
+                    <Loader2 className="size-5 animate-spin">
+                      Uploading....
+                    </Loader2>
+                  </>
+                ) : ("Summarize")}
               </button>
             </form>
           </div>

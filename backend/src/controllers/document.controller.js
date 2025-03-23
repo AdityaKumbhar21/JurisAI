@@ -16,6 +16,7 @@ export const uploadFile = async (req, res)=>{
         if(!file){
            return res.status(400).json({"message":"Please upload a file or Image !"})
         }
+
         const fileName = path.parse(file.originalname).name
         const result = await cloudinaryUpload(file.buffer);
         if(!result){
@@ -49,19 +50,49 @@ export const uploadFile = async (req, res)=>{
 
         // summarizing
         const summary = await summarizeText(extractedText);
-        uploadedDocument = await documentModel.findByIdAndUpdate(uploadedDocument._id, {summary,status:"Compeleted"}, {new:true});
+        uploadedDocument = await documentModel.findByIdAndUpdate(uploadedDocument._id, {summary,status:"Completed"}, {new:true});
 
-
-        
-        res.status(200).json({name: uploadedDocument.fileName, text: uploadedDocument.extractedText, summary});
+        res.status(200).json({name: uploadedDocument.fileName,uploadId: uploadedDocument._id, summary});
     } catch (error) {
         console.log("File upload error: ", error);
-        await documentModel.findByIdAndUpdate(uploadedDocument._id, {status:"failed"}, {new:true});
+        await documentModel.findByIdAndUpdate(uploadedDocument._id, {status:"Failed"}, {new:true});
         res.status(500).json({"message":"Error uploading file"});
     }
 }
 
+export const getFileStatus = async(req, res)=>{
+    try {
+        const {id} = req.params;
 
+        const doc = await documentModel.findById(id);
+        if(!doc)return res.status(400).json({"message":"No document found"});
 
+        if(doc.userId.toString() !== req.user._id.toString()){
+            return res.status(403).json({"message":"Unauthorized access"});
+        }
+
+        res.status(200).json({
+            status: doc.status,
+            summary: doc.summary || ""
+        });
+
+    } catch (error) {
+        console.log("Getting file status error: ", error);
+        res.status(500).json({"message": "Internal Server Issue"})
+    }
+}
+
+export const getHistory = async(req, res)=>{
+    try {
+        const history = await documentModel.find({userId: req.user._id})
+        .select("-fileUrl -extractedText")
+        .sort({createdAt: -1})
+        .lean();
+        res.status(200).json(history);
+    } catch (error) {
+        console.log("Getting history error: ", error);
+        res.status(500).json({"message":"Internal Server Issue"});
+    }
+}
 
 export default upload;
