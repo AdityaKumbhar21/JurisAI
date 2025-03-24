@@ -6,7 +6,7 @@ import SignupPage from './pages/SignupPage';
 import LoginPage from './pages/LoginPage';
 import HomePage from './pages/HomePage';
 import SummaryPage from './pages/SummaryPage';
-import LogoutPage from './pages/LogoutPage';
+import NotFound from './pages/NotFound';
 import {useAuthStore} from "./store/useAuthStore";
 import { Toaster } from 'react-hot-toast';
 
@@ -29,6 +29,8 @@ const App = () => {
           <Route path='/login' element={authUser ? <HomePage /> :<LoginPage/>}/>
           <Route path='/home' element={!authUser ? <LandingPage/> : <HomePage/>}/>
           <Route path='/summary/:id' element={!authUser ? <LandingPage/> :<SummaryPage/>}/>
+
+          <Route path='*' element={<NotFound />}></Route>
         </Routes>
       </Router>
 

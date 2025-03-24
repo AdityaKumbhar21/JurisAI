@@ -6,7 +6,7 @@ const LandingPage = () => {
   return (
     <div className="min-h-screen flex flex-col font-red">
       <header className="bg-primary p-4 flex justify-between items-center mx-4 rounded-2xl mt-4">
-        <div className="text-4xl font-black px-6">juris.ai</div>
+        <div className="text-4xl font-black px-6 font-sec">juris.ai</div>
         <div className='px-6  '>
         <Link to="/login" className="inline-block border border-black text-center text-md bg-white rounded-lg px-6 py-2 hover:bg-black hover:text-white transition whitespace-nowrap w-40">
         Sign In
@@ -16,7 +16,7 @@ const LandingPage = () => {
       
     
       <main className="flex-grow flex flex-col items-center justify-center px-4 py-8 text-center">
-        <h1 className="text-md text-sec font-cre"> <span className="text-blue-500 text-sm mr-2">◆</span>Powered AI</h1>
+        <h1 className="text-md text-sec font-cre"> <span className="text-blue-500 text-sm mr-2">◆</span>AI Powered</h1>
         <h1 className="text-6xl font-black mb-2">Tired of Long Legal Docs?</h1>
         <h2 className="text-6xl font-black mb-6">Let AI Summarize Them for You!</h2>
         <p className="max-w-md mx-auto mb-8 text-sec text-lg">

@@ -18,8 +18,7 @@ function SummaryPage() {
   return (
     <div className="min-h-screen flex flex-col w-screen font-sec bg-white">
     <NavBar />
-    <main className="flex-grow p-6">
-    <div className=" w-screen flex justify-start mb-8">
+    <div className=" w-screen flex justify-start mb-8 mt-30 ml-3">
           <Link
             to="/home"
             className="text-gray-600 text-lg hover:text-black transition"
@@ -27,11 +26,15 @@ function SummaryPage() {
             ← Back to Home
           </Link>
         </div>
+    <main className="flex-grow p-6 mt-6">
+    
       <div className="max-w-4xl mx-auto">
         
   
-        <h1 className="text-3xl font-bold mb-6 text-center">Summary Report</h1>
-        <p className="text-center text-gray-500 mb-10">Generated overview based on your uploaded documents</p>
+       <div className='mt-6'>
+          <h1 className="text-3xl font-bold mb-6 text-center mt-4">Summary Report</h1>
+          <p className="text-center text-gray-500 mb-10">Generated overview based on your uploaded documents</p>
+       </div>
   
         {isSummaryLoading && <div className="mb-8 animate-pulse text-lg text-gray-700">Sumarizing...</div>}
   

@@ -85,7 +85,7 @@ export const getFileStatus = async(req, res)=>{
 export const getHistory = async(req, res)=>{
     try {
         const history = await documentModel.find({userId: req.user._id})
-        .select("-fileUrl -extractedText")
+        .select("-fileUrl -extractedText, -summary")
         .sort({createdAt: -1})
         .lean();
         res.status(200).json(history);
