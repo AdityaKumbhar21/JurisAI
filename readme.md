@@ -3,7 +3,9 @@
 ###  **Project Overview**  
 **JurisAI** is a full-stack document summarization platform that allows users to upload documents and receive AI-generated summaries.  
 
-[Watch Demo Video]([https://example.com/path-to-video.mp4](https://drive.google.com/file/d/1mn9JhxiZyEVlMicVLCt0f-n5SdxNFGDz/view?usp=sharing))
+
+[Watch Demo Video](https://drive.google.com/file/d/1mn9JhxiZyEVlMicVLCt0f-n5SdxNFGDz/view?usp=sharing)
+
 ---
 
 ### **Tech Stack**  
